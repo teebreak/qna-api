@@ -1,12 +1,12 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
+  ConflictException,
+  Controller,
+  Delete,
+  Get,
   Param,
   Patch,
-  Delete,
-  ConflictException,
+  Post,
 } from '@nestjs/common';
 import { QnaService } from '../services/qna.service';
 import { Qna } from '../schemas/qna.schema';
@@ -43,10 +43,8 @@ export class QnaController {
         'This question is currently being edited by another user.',
       );
     }
-    await this.qnaService.setEditing(id, true);
-    const updatedQna = await this.qnaService.update(id, updateQnaDto);
-    await this.qnaService.setEditing(id, false);
-    return updatedQna;
+    await this.qnaService.setEditing(id, updateQnaDto.isEditing);
+    return await this.qnaService.update(id, updateQnaDto);
   }
 
   @Delete(':id')
