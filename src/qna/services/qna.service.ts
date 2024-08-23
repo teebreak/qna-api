@@ -29,8 +29,4 @@ export class QnaService {
   async remove(id: string): Promise<Qna> {
     return this.qnaModel.findByIdAndDelete(id).exec();
   }
-
-  async setEditing(id: string, isEditing: boolean): Promise<void> {
-    await this.qnaModel.findByIdAndUpdate(id, { isEditing }).exec();
-  }
 }

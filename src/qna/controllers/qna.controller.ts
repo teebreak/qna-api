@@ -1,6 +1,5 @@
 import {
   Body,
-  ConflictException,
   Controller,
   Delete,
   Get,
@@ -37,14 +36,7 @@ export class QnaController {
     @Param('id') id: string,
     @Body() updateQnaDto: Partial<Qna>,
   ): Promise<Qna> {
-    const qna = await this.qnaService.findOne(id);
-    if (qna.isEditing) {
-      throw new ConflictException(
-        'This question is currently being edited by another user.',
-      );
-    }
-    await this.qnaService.setEditing(id, updateQnaDto.isEditing);
-    return await this.qnaService.update(id, updateQnaDto);
+    return this.qnaService.update(id, updateQnaDto);
   }
 
   @Delete(':id')

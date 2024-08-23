@@ -16,9 +16,6 @@ export class Qna {
 
   @Prop({ default: Date.now })
   updatedAt: Date;
-
-  @Prop({ default: false })
-  isEditing: boolean;
 }
 
 export const QnaSchema = SchemaFactory.createForClass(Qna);
