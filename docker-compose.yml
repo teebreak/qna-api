@@ -16,8 +16,8 @@ services:
     volumes:
       - mongo-data:/data/db
     healthcheck:
-      test: test $$(echo "db.runCommand('ping').ok" | mongo localhost:27017/qna --quiet) -eq 1
-      interval: 30s
+      test: ["CMD", "mongosh", "--quiet", "localhost:27017/qna", "--eval", "'db.runCommand({ ping: 1 }).ok'"]
+      interval: 10s
       timeout: 10s
       retries: 5
       start_period: 30s
